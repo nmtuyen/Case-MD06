@@ -1,0 +1,259 @@
+<div class="container">
+  <div class="container-fluid p-0">
+    <!--    <h1 class="h3 mb-3">Danh sách người dùng trong hệ thống</h1>-->
+    <div class="row" *ngIf="user.id == null">
+      <div class="col-xl-12">
+        <div class="card">
+          <div class="card-header pb-1">
+            <div class="card-actions float-right">
+              <div class="dropdown show">
+              </div>
+            </div>
+            <!--            <h5 class="card-title mb-0">Danh sách người dùng trong hệ thống</h5>-->
+            <div class="row">
+              <div class="col-6" (click)="getAllUserSystem()">
+                <button class="btn btn-outline-success" style="width: 100%"> Danh sách tất cả người dùng trong hệ
+                  thống
+                </button>
+              </div>
+              <div class="col-6" (click)="getAllCCDV()">
+                <button class="btn btn-outline-success" style="width: 100%"> Danh sách người CCDV</button>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <table class="table table-striped" style="width:100%">
+              <thead>
+              <tr>
+                <th>Stt</th>
+                <th>Tên tài khoản</th>
+                <th>Số điện thoại</th>
+                <th>Email</th>
+                <th>Trạng thái</th>
+              </tr>
+              </thead>
+
+              <tbody>
+              <tr *ngFor="let user of listUser | paginate : {
+                itemsPerPage: tableSize,
+                currentPage: page,
+                totalItems: count
+              };
+        let i = index" [class.active]="i == currentIndex">
+                <td><img src="{{user.avatar}}" width="32" height="32" class="rounded-circle my-n1" alt="Avatar"></td>
+                <td><a style="cursor: pointer" (click)="getUserById(user.id)">{{user.userName}}</a></td>
+                <td><a style="cursor: pointer" (click)="getUserById(user.id)">{{user.phoneNumber}}</a></td>
+                <td><a style="cursor: pointer" (click)="getUserById(user.id)">{{user.email}}</a></td>
+                <!--                <td><a style="cursor: pointer" (click)="getUserById(user.id)">{{user.email}}</a></td>-->
+                <td *ngIf="user.statusUs == 1"><a style="cursor: pointer" (click)="getUserById(user.id)"><p
+                  style="color: red">Bị khóa</p></a></td>
+                <td *ngIf="user.statusUs == 2"><a style="cursor: pointer" (click)="getUserById(user.id)"><p
+                  style="color: green">Hoạt động</p></a></td>
+                <td *ngIf="user.statusUs == 0"><a style="cursor: pointer" (click)="getUserById(user.id)"><p
+                  style="color: green">Hoạt động</p></a></td>
+              </tr>
+              </tbody>
+
+
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row" *ngIf="user.id != null">
+      <div class="col-xl-8">
+        <div class="card">
+          <div class="card-header pb-1">
+            <div class="card-actions float-right">
+              <div class="dropdown show">
+              </div>
+            </div>
+            <!--            <h5 class="card-title mb-0">Danh sách người dùng trong hệ thống</h5>-->
+            <div class="row">
+              <div class="col-6" (click)="getAllUserSystem()">
+                <button class="btn btn-outline-success" style="width: 100%"> Danh sách tất cả người dùng trong hệ
+                  thống
+                </button>
+              </div>
+              <div class="col-6" (click)="getAllCCDV()">
+                <button class="btn btn-outline-success" style="width: 100%"> Danh sách người CCDV</button>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <table class="table table-striped" style="width:100%">
+              <thead>
+              <tr>
+                <th>Stt</th>
+                <th>Tên tài khoản</th>
+                <th>Số điện thoại</th>
+                <th>Email</th>
+                <th>Trạng thái</th>
+              </tr>
+              </thead>
+
+              <tbody>
+              <tr *ngFor="let user of listUser | paginate : {
+                itemsPerPage: tableSize,
+                currentPage: page,
+                totalItems: count
+              };
+        let i = index" [class.active]="i == currentIndex">
+                <td><img src="{{user.avatar}}" width="32" height="32" class="rounded-circle my-n1" alt="Avatar"></td>
+                <td><a style="cursor: pointer" (click)="getUserById(user.id)">{{user.userName}}</a></td>
+                <td><a style="cursor: pointer" (click)="getUserById(user.id)">{{user.phoneNumber}}</a></td>
+                <td><a style="cursor: pointer" (click)="getUserById(user.id)">{{user.email}}</a></td>
+                <!--                <td><a style="cursor: pointer" (click)="getUserById(user.id)">{{user.email}}</a></td>-->
+                <td *ngIf="user.statusUs == 1"><a style="cursor: pointer" (click)="getUserById(user.id)"><p
+                  style="color: red">block</p></a></td>
+                <td *ngIf="user.statusUs == 0"><a style="cursor: pointer" (click)="getUserById(user.id)"><p
+                  style="color: green">active</p></a></td>
+              </tr>
+              </tbody>
+
+
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-4">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-actions float-right">
+              <div class="dropdown show">
+                <a href="#" data-toggle="dropdown" data-display="static">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                       stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                       class="feather feather-more-horizontal align-middle">
+                    <circle cx="12" cy="12" r="1"></circle>
+                    <circle cx="19" cy="12" r="1"></circle>
+                    <circle cx="5" cy="12" r="1"></circle>
+                  </svg>
+                </a>
+
+              </div>
+            </div>
+            <h5 class="card-title mb-0">Thông tin chi tiết tài khoản</h5>
+          </div>
+          <div class="card-body">
+            <div class="row g-0">
+              <div class="col-3"></div>
+              <div class="col-6"><img src="{{user.avatar}}" alt=""></div>
+              <div class="col-3"></div>
+            </div>
+            <table class="table table-sm mt-2 mb-4">
+              <tbody>
+              <tr>
+                <th>Tài khoản</th>
+                <td>{{user.userName}}</td>
+              </tr>
+              <tr>
+                <th>Tên hiển thị</th>
+                <td>{{user.name}}</td>
+              </tr>
+              <tr>
+                <th>Giới tính:</th>
+                <td>{{user.gender}}</td>
+              </tr>
+              <tr>
+                <th>Số điện thoại:</th>
+                <td>{{user.phoneNumber}}</td>
+              </tr>
+              <tr>
+                <th>Email:</th>
+                <td>{{user.email}}</td>
+              </tr>
+              <tr>
+                <th>Yêu cầu:</th>
+                <td>{{user.requestToPayer}}</td>
+              </tr>
+              <tr>
+                <th>Sở thích:</th>
+                <td>{{user.hobby}}</td>
+              </tr>
+              <tr>
+                <th>Địa chỉ:</th>
+                <td>{{user.city}}</td>
+              </tr>
+              <tr>
+                <th>Chiều cao:</th>
+                <td>{{user.height}} cm</td>
+              </tr>
+              <tr>
+                <th>Cân nặng:</th>
+                <td>{{user.weight}} kg</td>
+              </tr>
+              <tr>
+                <td class="col-12">
+                  <button class="badge bg-secondary" (click)="deleteUserDetail()">Đóng</button>
+
+                  <button *ngIf="user.statusCCDV == 1 || user.statusCCDV ==2" class="badge bg-danger" (click)="ChangeVipUser(user.id)">Nâng cấp VIP</button>
+
+                  <button *ngIf="user.statusUs == 0" class="badge bg-danger" (click)="changeStatusUs(user.id)">Khóa</button>
+
+                  <button *ngIf="user.statusUs == 1" class="badge bg-danger" (click)="changeStatusUs(user.id)">Mở khóa</button>
+
+                </td>
+              </tr>
+              </tbody>
+            </table>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--    // Phân trang-->
+
+
+  </div>
+  <div class="d-flex justify-content-center">
+    <pagination-controls previousLabel="Trước" nextLabel="Sau" (pageChange)="tabSize($event)">
+    </pagination-controls>
+  </div>
+
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Xác Nhận</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Bạn có muốn cập nhật người dùng này lên Vip không
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
+        <button type="button" class="btn btn-primary" (click)="ChangeVipUser(userVip.id)">Cập Nhật</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel1">Hủy Tài Khoản Vip</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Bạn có muốn hủy người dùng này trở lại là người CCDV bình thường ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+        <button type="button" class="btn btn-primary" (click)="DeleteVip(userVip.id)">Xóa</button>
+      </div>
+    </div>
+  </div>
+</div>

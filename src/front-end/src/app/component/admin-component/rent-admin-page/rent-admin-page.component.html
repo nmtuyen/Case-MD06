@@ -1,0 +1,138 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xl-12" *ngIf="hidden == false">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="header-title pb-3 mt-0">Quản lý các đơn thuê </h5>
+          <div class="table-responsive">
+            <table class="table table-hover mb-0">
+              <thead>
+              <tr class="align-self-center">
+                <th>Ngày Tạo Đơn</th>
+                <th>Người Cung Cấp Dịch Vụ</th>
+                <th>Người Sử Dụng Dịch Vụ</th>
+                <th>Thời Gian</th>
+                <th>Tổng Tiền</th>
+                <th>Chi Tiết </th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let item of rentList">
+                <td>{{item.rentDate | date : 'dd/MM/YYYY' }}</td>
+                <td><img [src]="item.user?.avatar"  alt="" class="thumb-sm rounded-circle mr-2"> {{item.user?.name}}</td>
+                <td><img [src]="item.userRent?.avatar"  alt="" class="thumb-sm rounded-circle mr-2"> {{item.userRent?.name}}</td>
+                <td>{{item.time}} giờ</td>
+                <td>{{item.totalMoney}}</td>
+                <td><span class="badge bg-success" (click)="getRentDetailById(item.id);checkHidden();getRentbyid(item.id)">Chi Tiết</span></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <!--end table-responsive-->
+          <div class="pt-3 border-top text-right"><a href="#" class="text-primary">Xem tất cả <i class="mdi mdi-arrow-right"></i></a></div>
+        </div>
+      </div>
+    </div>
+        <div class="row" *ngIf="hidden == true">
+
+          <div class="col-xl-7">
+            <div class="card">
+              <div class="card-header pb-0">
+                <div class="card-actions float-right">
+                  <div class="dropdown show">
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <table class="table table-striped" style="width:100%">
+                  <thead>
+                  <tr>
+                    <th>Ngày Tạo Đơn</th>
+                    <th>Người Cung Cấp Dịch Vụ</th>
+                    <th>Người Sử Dụng Dịch Vụ</th>
+                    <th>Thời Gian</th>
+                    <th>Tổng Tiền</th>
+                    <th>Chi Tiết </th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                  <tr *ngFor="let item of rentList">
+                    <td>{{item.rentDate | date : 'dd/MM/YYYY' }}</td>
+                    <td><img [src]="item.user?.avatar"  alt="" class="thumb-sm rounded-circle mr-2"> {{item.user?.name}}</td>
+                    <td><img [src]="item.userRent?.avatar"  alt="" class="thumb-sm rounded-circle mr-2"> {{item.userRent?.name}}</td>
+                    <td>{{item.time}} giờ</td>
+                    <td>{{item.totalMoney}}</td>
+                    <td><span style="cursor: pointer" class="badge bg-success"
+                              (click)="getRentDetailById(item.id);getRentbyid(item.id)">Chi tiết</span></td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xl-5">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-actions float-right">
+                  <div class="dropdown show">
+                    <a href="#" data-toggle="dropdown" data-display="static">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                           class="feather feather-more-horizontal align-middle">
+                        <circle cx="12" cy="12" r="1"></circle>
+                        <circle cx="19" cy="12" r="1"></circle>
+                        <circle cx="5" cy="12" r="1"></circle>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+                <h5 class="card-title mb-0">Thông tin chi tiết Đơn Thuê </h5>
+              </div>
+              <div class="card-body">
+                <div class="row g-0">
+                  <div class="col-sm-9 col-xl-12 col-xxl-9">
+                    <strong>Đơn Đặt Ngày {{rentById.startTime | date : 'dd/MM/yyyy'}}</strong>
+                  </div>
+                </div>
+
+                <table class="table table-striped-xl mt-2 mb-4">
+                  <thead>
+                  <th>
+                    Loại Dịch Vụ
+                  </th>
+                    <th>Tên Dịch Vụ</th>
+                  <th>Tổng Số giờ </th>
+                  <th>Trạng Thái</th>
+                  </thead>
+                  <tbody>
+                 <tr *ngFor="let item of rentByDetailId">
+                    <td>{{item.service?.typeService}}</td>
+
+                    <td>{{item.service?.name}}</td>
+
+                    <td>{{item.rent?.time}}</td>
+
+
+                    <td *ngIf="item.rent?.status == 1">Chờ xác nhận</td>
+                    <td *ngIf="item.rent?.status == 2">Đã Xác Nhận</td>
+                    <td *ngIf="item.rent?.status == 3">Đã Hoàn Thành</td>
+                    <td *ngIf="item.rent?.status == 4">Đã Gửi Báo Cáo</td>
+                  </tr>
+                  </tbody>
+                  <tr>
+                    <td></td>
+                    <td>Tổng Tiền : </td>
+                    <td> {{rentById.totalMoney}} vnd</td>
+                  </tr>
+
+                </table>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>

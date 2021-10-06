@@ -1,0 +1,150 @@
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+<hr>
+<div class="container bootstrap snippets bootdey">
+  <div class="row">
+    <p>Danh Sách Các Dịch Vụ Có Trong Ứng Dụng</p>
+    <div class="col-12">
+      <img data-bs-toggle="modal" data-bs-target="#exampleModal15" src="https://img.icons8.com/external-kiranshastry-lineal-color-kiranshastry/64/000000/external-upload-interface-kiranshastry-lineal-color-kiranshastry.png"/>
+    </div>
+  </div>
+  <div class="row">
+
+    <div class="col-lg-12">
+      <div class="main-box no-header clearfix">
+        <div class="main-box-body clearfix">
+          <div class="table-responsive">
+            <table class="table user-list">
+              <thead>
+              <tr>
+                <th>Số Thứ tự</th>
+                <th><span>Loại Dịch Vụ</span></th>
+                <th><span>Tên Dịch Vụ</span></th>
+                <th>Chức Năng</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let item of category;index as i">
+                <td>{{i+1}}</td>
+                <td>
+                  <span class="user-subhead">{{item.typeService}}</span>
+                </td>
+                <td>{{item.name}}</td>
+                <td style="width: 20%;">
+                  <a class="table-link text-warning">
+                                            <span class="fa-stack">
+                                                <i class="fa fa-square fa-stack-2x" (click)="getCategoryById(item.id)"></i>
+                                                <i class="fa fa-search-plus fa-stack-1x fa-inverse" (click)="getCategoryById(item.id)"></i>
+                                            </span>
+                  </a>
+                  <a class="table-link text-info"  >
+                                            <span class="fa-stack">
+                                                <i class="fa fa-square fa-stack-2x" (click)="getCategoryById(item.id)" ></i>
+                                                <i class="fa fa-pencil fa-stack-1x fa-inverse"  data-bs-toggle="modal" data-bs-target="#exampleModal13" (click)="getCategoryById(item.id)"></i>
+                                            </span>
+                  </a>
+                  <a class="table-link danger">
+                                            <span class="fa-stack">
+                                                <i class="fa fa-square fa-stack-2x" ></i>
+                                                <i class="fa fa-trash-o fa-stack-1x fa-inverse"  data-bs-toggle="modal" data-bs-target="#exampleModal14"(click)="getCategoryById(item.id)" ></i>
+                                            </span>
+                  </a>
+                </td>
+              </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    </div>
+  </div>
+<div class="modal fade" id="exampleModal13" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel13" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel13">Chỉnh Sửa Dịch vụ</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="categoryForm">
+          <select formControlName="typeService" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+            <option selected>Chọn các mục dưới đây</option>
+            <option value="Miễn phí">Miễn phí</option>
+            <option value="Cơ bản">Cơ bản</option>
+            <option value="Mở rộng">Mở rộng</option>
+          </select>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-default1">Tên Dịch Vụ</span>
+          </div>
+          <input formControlName="name" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+        </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="saveCategory(categoryById.id)">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="exampleModal14" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel13" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel14">Xóa Dịch Vụ</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Bạn Có muốn Xóa Loại Dịch Vụ này không
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="deleteCategory(categoryById.id)">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="exampleModal15" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel13" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel15">Thêm Dịch Vụ Mới</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="categoryForm">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" >Loại Dịch Vụ</span>
+            </div>
+            <select formControlName="typeService" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+              <option selected>Chọn các mục dưới đây</option>
+              <option value="Miễn phí">Miễn phí</option>
+              <option value="Cơ bản">Cơ bản</option>
+              <option value="Mở rộng">Mở rộng</option>
+            </select>
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="inputGroup-sizing-default3">Tên Dịch Vụ</span>
+            </div>
+            <input formControlName="name" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+        <button type="button" class="btn btn-primary" (click)="createCategory()">Thêm Mới</button>
+      </div>
+    </div>
+  </div>
+</div>

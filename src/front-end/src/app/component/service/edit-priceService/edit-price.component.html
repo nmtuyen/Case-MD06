@@ -1,0 +1,118 @@
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel1">Gía dịch vụ cá nhân</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h5>Để hoàn tất đăng ký vui lòng chọn giá tiền của bản thân</h5>
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1">Gía</span>
+          <input type="number" id="price" class="form-control" aria-label="Username" aria-describedby="basic-addon1"
+                 required min="70000" max="400000">
+
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+        <button (click)="savePriceUser()"   type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2"
+                data-bs-dismiss="modal">Lưu
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel2">Xác nhận</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h5>Đã hoàn tất đăng ký vui lòng chờ quản trị viên xác nhận</h5>
+
+
+
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+      <button type="button" routerLink="" class="btn btn-primary"
+      >Xác nhận
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<div class="container">
+  <div class="row mt-5">
+    <div class="col-4">
+      <H3>Dịch Vụ Miễn Phí</H3>
+      <table  class="table table-striped">
+        <thead>
+        </thead>
+        <tbody>
+        <tr   >
+          <th scope="row">Tên Dịch Vụ</th>
+          <th scope="row">Giá Tiền </th>
+
+        </tr>
+        <tr *ngFor="let userService1 of listUserService" >
+          <td *ngIf="userService1.service?.typeService == 'Miễn phí'">{{userService1.service?.name}}</td>
+          <td *ngIf="userService1.service?.typeService == 'Miễn phí'">{{userService1.price}}
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-4 ">
+      <H3>Dịch Vụ Cơ Bản</H3>
+      <table class="table table-striped">
+        <tbody>
+        <tr>
+          <th scope="row">Tên Dịch Vụ</th>
+          <th scope="row"> Giá Tiền </th>
+
+        </tr>
+        <tr *ngFor="let userService1 of listUserService, index as i" >
+          <td *ngIf="userService1.service?.typeService == 'Cơ bản'">{{userService1.service?.name}}</td>
+          <td *ngIf="userService1.service?.typeService == 'Cơ bản'">{{userService1.price}}
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-4 ">
+      <H3>Dịch Vụ Mở Rộng</H3>
+      <table class="table table-striped">
+        <tbody>
+        <tr>
+          <th scope="row">Tên Dịch Vụ</th>
+          <th scope="row"> Giá Tiền </th>
+        </tr>
+
+        <tr *ngFor="let userService1 of basePrice, index as j" >
+          <td >{{userService1.service?.name}}</td>
+          <td >
+            <input id="{{j}}"  type="number" class="form-control" placeholder="{{userService1.price}}" aria-label="Username" aria-describedby="basic-addon1">
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-3"></div>
+    <div class="col-6 text-center">
+      <button (click)="updateAll()" type="button" class="btn btn-primary" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#exampleModal1" >
+        Lưu
+      </button>
+    </div>
+    <div class="col-3 "></div>
+  </div>
+</div>
